@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>articles</title>
+        <script src="js/vue.min.js"></script>
+        <script src="js/axios.min.js"></script>
+        <script src="js/js.cookie.js"></script>
+        <script src="js/marked.js"></script>
+   
+        <link rel="stylesheet" type="text/css" href="css/markdown.css" > 
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
+    </head>
+    <body>
+        <script>
+            var articles = new Vue({
+                el:'#articles',
+                data:
+                {
+
+                },
+                methods:
+                {
+                    get_article: function()
+                    {
+                        axios({
+                            method:'get',
+                            url:'http://127.0.0.1:4000/get_article/1'
+                            
+                        })
+                        .then(
+                            
+                        )
+                        .catch(function(error){
+                            console.log(error)
+                        })
+                    }        
+                }
+            })
+        </script>
+    </body>
+</html>

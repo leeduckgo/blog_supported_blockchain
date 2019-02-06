@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <script src="js/vue.min.js"></script>
+        <script src="js/axios.min.js"></script>
+        <script src="js/js.cookie.js"></script>
+        <script src="js/marked.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/login.css" > 
+    </head>
+    <body>
+        <div id = "login">
+            <div class="login">
+                <h1>Login to AhaSmarter U•ェ•*U </h1>
+                <form method="post" action="">
+                <p><input type="text" name="login" value="" placeholder="Username" v-model="name"></p>
+                <p><input type="password" name="password" value="" placeholder="Password" v-model = "password"></p>
+                <p class="remember_me">
+                    <label>
+                    <input type="checkbox" name="remember_me" id="remember_me">
+                    Remember me on this computer
+                    </label>
+                </p>
+                <!-- <p class="submit"><input type="submit" name="commit" 
+                    value="Login" v-on:click="login()"></p> -->
+                <button type="button" class="btn btn-success" v-on:click="login()">save</button>
+
+                </form>
+            </div>
+        
+            <div class="login-help">
+                <p>Forgot your password? <a href="#">Click here to reset it</a>.</p>
+            </div>
+        </div>
+        <script>
+            var login = new Vue({
+                el:'#login',
+                data:{
+                    name:"",
+                    password:""
+                },
+                methods:{
+                    login:function(){
+                        axios({
+                            method:'post',
+                            url:'api/v1/sessions',
+                            data:
+                            {
+                                "username": login.name,
+                                "password": login.password
+                            },
+                            headers:
+                            {
+                                'Content-Type': 'application/json',
+                            }                            
+                            
+                        })
+                        .then(function(response){
+                            // login.show_user();
+                            console.log(response)
+                        })
+                        .catch(function(error){
+                            alert(error);
+                        })
+                    },
+                    show_user:function(){
+                        axios({
+                            method:'get',
+                            url:'api/v1/users/4'
+                        })
+                        .then(function(response){
+                            alert(response.data);
+                        })
+                        .catch(function(error){
+                            alert(error);
+                        })
+                    }
+                }
+            })
+        </script>
+    </body> 
+</html>

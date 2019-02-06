@@ -1,0 +1,69 @@
+    <br>
+    <div id = "article" v-html = "context">
+    </div>
+        
+    <script>
+        function $(id){ return document.getElementById(id); }  
+        var nav = new Vue({
+            el:'#nav',
+            data:{
+
+            },
+            methods:{
+                jump_login:function(){
+                    window.location.href="../../login.html";
+                }
+            }
+        })
+        var article = new Vue({
+        el: '#article',
+        data:
+        {
+            context: ""
+        },
+        methods:
+        {
+            render_article: function(response){
+                title = response.data.title
+                // category = "<b>类别：" + response.data.category + "</b>"
+                body = response.data.body
+                context = "<h1>" + title + "</h1>" +  marked(body)
+                article.context = context
+            },
+            render_html:function(response){
+                $("the_iframe").src = response.data.body
+                $("the_iframe").style = "display:block;"
+            },
+            get_article: function()
+                {
+                    axios({
+                        method:'get',
+                        url:'../../api/v1/articles/<%= @id %>'
+                        
+                    })
+                    .then(function(response){
+                        // login.show_user();
+                        type = response.data.type
+                        console.log(type)
+                        switch(type)
+                        {
+                            case "normal":
+                                article.render_article(response);
+                                break;
+                            case "html":
+                                article.render_html(response);
+                                break;
+                        }
+
+                    })
+                    .catch(function(error){
+                        console.log(error)
+                    })
+                } 
+        }        
+        })
+
+        article.get_article()
+    </script>
+
+

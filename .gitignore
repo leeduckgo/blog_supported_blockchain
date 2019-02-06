@@ -1,0 +1,7 @@
+# Secret
+/config/*.secret.exs
+# App artifacts
+/_build
+/db
+/deps
+/*.ez
