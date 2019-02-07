@@ -28,6 +28,7 @@ defmodule BlogWeb.Router do
     post("/articles", ArticleController, :show)
     post("/test", ArticleController, :test)
     resources("/sessions", SessionController, only: [:new, :create])
+    get("/articles/:id", ArticleController, :show) # get an article by id
   end
 
   scope "/api/v1", BlogWeb do
@@ -36,7 +37,7 @@ defmodule BlogWeb.Router do
     get("/users/:id", UserController, :show)
     get("/", PageController, :index)
     get("/users/",UserController, :load_current_user)
-    get("/articles/:id", ArticleController, :show) # get an article by id
+
     post("/articles/create" , ArticleController, :create) # create an article by id
   end
 
