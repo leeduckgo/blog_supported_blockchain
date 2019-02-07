@@ -49,10 +49,5 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :blog, Blog.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "blog_db",
-  hostname: "localhost",
-  pool_size: 10
+secret_file = "#{File.cwd!()}/config/#{Mix.env()}.secret.exs"
+File.exists?(secret_file) && import_config(secret_file)
