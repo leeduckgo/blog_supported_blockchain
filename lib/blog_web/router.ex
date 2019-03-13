@@ -23,12 +23,18 @@ defmodule BlogWeb.Router do
     get("/articles/:id", PageController, :show)
   end
 
+  # scope "/ycy", BlogWeb do
+  #   pipe_through([:browser])
+  #   get("/messages", YcyController, :show)
+  # end
+
   scope "/api/v1", BlogWeb do
     pipe_through([:browser, :api])
     post("/articles", ArticleController, :show)
     post("/test", ArticleController, :test)
     resources("/sessions", SessionController, only: [:new, :create])
     get("/articles/:id", ArticleController, :show) # get an article by id
+    get("/ycy/messages" ,YcyController, :show)
   end
 
   scope "/api/v1", BlogWeb do

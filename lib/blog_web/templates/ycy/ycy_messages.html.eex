@@ -1,0 +1,34 @@
+<div id = "msgs">
+    <div class="list-group"  v-for="message in all_msgs">
+    </div>
+</div>
+
+<script>
+    var msgs = new Vue({
+        el:'#msgs',
+        data:{
+            all_msgs: new Array()
+        },
+        methods:{
+            get_messages:function(){
+                axios({
+                    method:'post',
+                    url:'api/v1/messages',
+                    data:
+                    {
+                        "page": 1,
+                        "page_size": 20 
+                    }
+                })
+                .then(function(response){
+                    msgs.all_msgs = response.data.entries
+                    
+                })
+                .catch(function(error){
+                    alert(error);
+                })
+            }
+        }                
+    })
+msgs.get_messages()
+</script>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AhaSmarter! U•ェ•*U</title>
+        <script src="<%= static_path(@conn, "/../js/vue.min.js") %>"></script>
+        <script src="<%= static_path(@conn, "/../js/axios.min.js") %>"></script>
+        <script src="<%= static_path(@conn, "/../js/js.cookie.js") %>"></script>
+        <script src="<%= static_path(@conn, "/../js/marked.js") %>"></script>
+        
+        <link rel="stylesheet" href="<%= static_path(@conn, "/../css/markdown.css") %>">
+        <link rel="stylesheet" href="<%= static_path(@conn, "/../css/footer-navbar.css") %>">
+        <link rel="stylesheet" href="<%= static_path(@conn, "/../css/bootstrap.min.css") %>">
+        <link rel="stylesheet" href="<%= static_path(@conn, "/../css/iframe.css") %>">
+        
+    </head>
+    <body>
+        <main role="main" class="flex-shrink-0">
+            <div class="container">
+                <%= render @view_module, @view_template, assigns %>
+            </div>
+        </main>
+    </body>
+</html>
