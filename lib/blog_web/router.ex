@@ -35,6 +35,7 @@ defmodule BlogWeb.Router do
     resources("/sessions", SessionController, only: [:new, :create])
     get("/articles/:id", ArticleController, :show) # get an article by id
     get("/ycy/messages" ,YcyController, :show)
+    post("/ycy/messages/create", YcyController, :create)
   end
 
   scope "/api/v1", BlogWeb do

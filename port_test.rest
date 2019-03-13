@@ -1,1 +1,8 @@
 GET http://127.0.0.1:4001/api/v1/ycy/messages HTTP/1.1
+
+POST http://127.0.0.1:4001/api/v1/ycy/messages/create HTTP/1.1
+content-type: application/json
+
+{
+  "name": "傻蛋",
+}

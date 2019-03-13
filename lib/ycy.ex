@@ -1,4 +1,4 @@
-defmodule YcyMessages do
+defmodule YcyMessage do
 
   use Directive, :schema
 
@@ -10,6 +10,11 @@ defmodule YcyMessages do
     timestamps()
   end
   def get_messages() do
-    Repo.all(YcyMessages)
+    Repo.all(YcyMessage)
+  end
+  def insert(msg) do
+    YcyMessage
+    |> StructTranslater.to_struct(msg)
+    |> Repo.insert()
   end
 end
