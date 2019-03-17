@@ -1,6 +1,6 @@
 GET http://0.0.0.0:4001/api/v1/ycy/groups/abcde HTTP/1.1
 
-POST http://149.28.86.38:4000/api/v1/ycy/messages/create HTTP/1.1
+POST http://0.0.0.0:4000/api/v1/ycy/messages/create HTTP/1.1
 content-type: application/json
 
 {
