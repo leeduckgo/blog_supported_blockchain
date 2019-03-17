@@ -1,4 +1,4 @@
-defmodule BlogWeb.YcyController do
+defmodule BlogWeb.YcyMessageController do
   use BlogWeb, :controller
 
   # def show(conn, _params) do

@@ -1,3 +1,3 @@
-defmodule BlogWeb.YcyView do
+defmodule BlogWeb.YcyMessageView do
   use BlogWeb, :view
 end
