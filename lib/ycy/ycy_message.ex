@@ -7,6 +7,7 @@ defmodule YcyMessage do
     field :fans_id, :string
     field :name, :string
     field :context, :string
+    field :group_name, :string
     timestamps()
   end
   def get_messages() do
