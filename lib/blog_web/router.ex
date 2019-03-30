@@ -42,6 +42,7 @@ defmodule BlogWeb.Router do
     get("/ycy/groups/:puid", YcyGroupController, :show)
     get("/ycy/users/:puid", YcyUserController, :show)
     post("/ycy/users/create", YcyUserController, :create)
+    post("/ycy/users/transfer", YcyUserController, :transfer)
   end
 
   scope "/api/v1", BlogWeb do

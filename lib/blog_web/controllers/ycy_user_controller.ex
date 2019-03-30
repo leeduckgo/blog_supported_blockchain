@@ -12,10 +12,20 @@ defmodule BlogWeb.YcyUserController do
     json(conn, user_info)
   end
 
-  def create(conn, params) do
-    %{"group" => group_puid, "users" => users} = params
+  def create(conn, %{"group" => group_puid, "users" => users}) do
+
     group = YcyGroup.get_group_by_id(group_puid)
     YcyUser.insert(users, group.id)
     json(conn, %{status: :ok})
+  end
+
+  def transfer(conn, %{"from" => from, "to" => to, "amount" => amount}) do
+    {status, _result} = YcyUser.transfer(from, to, amount)
+    case status do
+      :ok ->
+        json(conn, %{status: "success"})
+      :error ->
+        json(conn, %{status: "fail"})
+    end
   end
 end

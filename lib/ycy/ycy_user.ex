@@ -21,7 +21,6 @@ defmodule YcyUser do
   end
 
   def insert(users, group_id) do
-
     Enum.map(users, fn user ->
       user_modified =
         YcyUser
@@ -65,11 +64,11 @@ defmodule YcyUser do
   defp do_transfer(%YcyUser{balance: balance} = user_from, user_to, amount) do
     user_from_transfered =
       user_from
-      |> changeset(%{balance: amount - balance})
+      |> changeset(%{balance: balance - amount})
       |> Repo.update!()
     user_to_transfered =
       user_to
-      |> changeset(%{balance: amount + balance})
+      |> changeset(%{balance: balance + amount})
       |> Repo.update!()
     {:ok,[user_from_transfered, user_to_transfered, amount]}
   end
