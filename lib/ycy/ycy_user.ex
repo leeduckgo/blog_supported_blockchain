@@ -61,14 +61,14 @@ defmodule YcyUser do
     {:error, "insufficient_balance"}
   end
 
-  defp do_transfer(%YcyUser{balance: balance} = user_from, user_to, amount) do
+  defp do_transfer(%YcyUser{balance: balance_from} = user_from, %YcyUser{balance: balance_to} = user_to, amount) do
     user_from_transfered =
       user_from
-      |> changeset(%{balance: balance - amount})
+      |> changeset(%{balance: balance_from - amount})
       |> Repo.update!()
     user_to_transfered =
       user_to
-      |> changeset(%{balance: balance + amount})
+      |> changeset(%{balance: balance_to + amount})
       |> Repo.update!()
     {:ok,[user_from_transfered, user_to_transfered, amount]}
   end
