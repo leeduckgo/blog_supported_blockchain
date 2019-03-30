@@ -10,5 +10,5 @@ POST http://127.0.0.1:4000/api/v1/ycy/users/create HTTP/1.1
 content-type: application/json
 
 {
-  "users": [{"name": "傻蛋","puid": "aabbb"}, {"name": "大爷", "puid": "ddccc"}]
+  "group": "1f423133","users": [{"name": "傻蛋","puid": "aabbb"}, {"name": "大爷", "puid": "ddccc"}]
 }

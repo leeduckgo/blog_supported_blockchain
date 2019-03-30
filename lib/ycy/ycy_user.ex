@@ -20,9 +20,13 @@ defmodule YcyUser do
     |> Map.fetch!(:ycy_users)
   end
 
-  def insert(users) do
+  def insert(users, group_id) do
+
     Enum.map(users, fn user ->
-      user_modified = StructTranslater.to_struct(YcyUser, user)
+      user_modified =
+        YcyUser
+        |> StructTranslater.to_struct(user)
+        |> Map.update(:ycy_group_id, group_id, &(&1 = group_id))
       if exist?(user_modified) do
         nil
       else

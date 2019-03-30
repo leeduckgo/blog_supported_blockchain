@@ -13,8 +13,9 @@ defmodule BlogWeb.YcyUserController do
   end
 
   def create(conn, params) do
-    %{"users" => users} = params
-    YcyUser.insert(users)
+    %{"group" => group_puid, "users" => users} = params
+    group = YcyGroup.get_group_by_id(group_puid)
+    YcyUser.insert(users, group.id)
     json(conn, %{status: :ok})
   end
 end
