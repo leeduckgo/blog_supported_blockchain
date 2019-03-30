@@ -9,7 +9,7 @@ defmodule Directive do
       alias __MODULE__
       import Ecto.{Query, Queryable, Changeset}
       import EctoEnum, only: [defenum: 2]
-      alias  Blog.Repo
+      alias Blog.Repo
 
       def last(n \\ 1) do
         __MODULE__
@@ -23,5 +23,4 @@ defmodule Directive do
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end
-
 end

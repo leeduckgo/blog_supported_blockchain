@@ -1,5 +1,4 @@
 defmodule Auth.AuthAccessPipeline do
-
   @moduledoc """
   i. Guardian.Plug.VerifySession — looks for a token in the session and verifies it
 
@@ -13,6 +12,4 @@ defmodule Auth.AuthAccessPipeline do
   plug(Guardian.Plug.VerifySession, claims: %{"typ" => "access"})
   plug(Guardian.Plug.EnsureAuthenticated)
   plug(Guardian.Plug.LoadResource)
-
 end
-

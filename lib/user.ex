@@ -5,18 +5,18 @@ defmodule User do
   use Directive, :schema
 
   schema "users" do
-    field :name, :string
-    field :email, :string
-    field :mixin_uuid, :string
-    field :password, :string
-    field :password_hash, :string
-    field :group_id, :integer
-    has_many :articles, Article
+    field(:name, :string)
+    field(:email, :string)
+    field(:mixin_uuid, :string)
+    field(:password, :string)
+    field(:password_hash, :string)
+    field(:group_id, :integer)
+    has_many(:articles, Article)
   end
-
 
   def admin?(%User{id: 0}), do: true
   def admin?(_), do: false
+
   def get_user(id) do
     User
     |> where(id: ^id)
@@ -28,6 +28,7 @@ defmodule User do
     |> registration_changeset(attrs)
     |> Repo.insert()
   end
+
   @doc """
   hash the password
   """
@@ -66,5 +67,4 @@ defmodule User do
       false -> {:error, "Incorrect username or password"}
     end
   end
-
 end

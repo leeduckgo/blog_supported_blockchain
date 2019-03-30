@@ -8,9 +8,12 @@ defmodule BlogWeb.YcyMessageController do
 
   def show(conn, _params) do
     msgs = YcyMessage.get_messages()
-    msgs_map = Enum.map(msgs, fn msg ->
-      StructTranslater.struct_to_map(msg)
-    end)
+
+    msgs_map =
+      Enum.map(msgs, fn msg ->
+        StructTranslater.struct_to_map(msg)
+      end)
+
     json(conn, msgs_map)
   end
 
@@ -18,5 +21,4 @@ defmodule BlogWeb.YcyMessageController do
     {status, _result} = YcyMessage.insert(params)
     json(conn, %{status: status})
   end
-
 end

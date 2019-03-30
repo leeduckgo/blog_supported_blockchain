@@ -24,12 +24,13 @@ defmodule BlogWeb.SessionController do
     case User.authenticate_user(user, password) do
       {:ok, user} ->
         conn = UserController.login(conn, user)
-        json(conn,"success!")
+        json(conn, "success!")
 
       {:error, _reason} ->
-        json(conn,"Invalid username/password combination")
+        json(conn, "Invalid username/password combination")
     end
   end
+
   def delete(conn, _) do
     conn
     |> UserController.logout()

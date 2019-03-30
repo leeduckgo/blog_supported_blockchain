@@ -6,6 +6,7 @@ defmodule BlogWeb.YcyGroupController do
       puid
       |> YcyGroup.get_group_by_id()
       |> StructTranslater.struct_to_map()
+
     json(conn, group_info)
   end
 
@@ -13,6 +14,4 @@ defmodule BlogWeb.YcyGroupController do
     {status, _result} = YcyMessage.insert(params)
     json(conn, %{status: status})
   end
-
-
 end

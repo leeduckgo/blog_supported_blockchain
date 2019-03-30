@@ -2,16 +2,16 @@ defmodule BlogWeb.Router do
   use BlogWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
     # plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["urlencoded","json"]
-    plug CORSPlug, [origin: "http://localhost"]
+    plug(:accepts, ["urlencoded", "json"])
+    plug(CORSPlug, origin: "http://localhost")
   end
 
   pipeline :auth do
@@ -33,11 +33,14 @@ defmodule BlogWeb.Router do
     post("/articles", ArticleController, :show)
     post("/test", ArticleController, :test)
     resources("/sessions", SessionController, only: [:new, :create])
-    get("/articles/:id", ArticleController, :show) # get an article by id
-    get("/ycy/messages" ,YcyMessageController, :show)
+    # get an article by id
+    get("/articles/:id", ArticleController, :show)
+    get("/ycy/messages", YcyMessageController, :show)
     post("/ycy/messages/create", YcyMessageController, :create)
     post("/ycy/groups/create", YcyGroupController, :create)
-    get("/ycy/groups/:puid", YcyGroupController, :show) #get an group info by id
+    # get an group info by id
+    get("/ycy/groups/:puid", YcyGroupController, :show)
+    get("/ycy/users/:puid", YcyUserController, :show)
   end
 
   scope "/api/v1", BlogWeb do
@@ -45,9 +48,10 @@ defmodule BlogWeb.Router do
     get("/sessions/logout", SessionController, :delete)
     get("/users/:id", UserController, :show)
     get("/", PageController, :index)
-    get("/users/",UserController, :load_current_user)
+    get("/users/", UserController, :load_current_user)
 
-    post("/articles/create" , ArticleController, :create) # create an article by id
+    # create an article by id
+    post("/articles/create", ArticleController, :create)
   end
 
   # Other scopes may use custom stacks.

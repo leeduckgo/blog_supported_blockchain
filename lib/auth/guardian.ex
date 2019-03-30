@@ -1,5 +1,4 @@
 defmodule Auth.Guardian do
-
   @moduledoc false
 
   use Guardian, otp_app: :blog
@@ -15,5 +14,4 @@ defmodule Auth.Guardian do
     user = User.get_user(id)
     {:ok, user}
   end
-
 end

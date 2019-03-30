@@ -11,7 +11,7 @@ defmodule Blog.Application do
       # Start the Ecto repository
       supervisor(Blog.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(BlogWeb.Endpoint, []),
+      supervisor(BlogWeb.Endpoint, [])
       # Start your own worker by calling: Blog.Worker.start_link(arg1, arg2, arg3)
       # worker(Blog.Worker, [arg1, arg2, arg3]),
     ]

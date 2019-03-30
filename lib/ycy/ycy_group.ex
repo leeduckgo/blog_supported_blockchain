@@ -3,11 +3,14 @@ defmodule YcyGroup do
 
   # ycy_groups
   schema "ycy_groups" do
-    field :puid, :string
-    field :level, :integer
-    field :introduction, :string
+    field(:puid, :string)
+    field(:level, :integer)
+    field(:introduction, :string)
+    field(:admin_puid, :string)
+    has_many(:ycy_users, YcyUser)
     timestamps()
   end
+
   def get_groups() do
     Repo.all(YcyGroup)
   end
@@ -17,8 +20,9 @@ defmodule YcyGroup do
     |> where(puid: ^group_id)
     |> Repo.one()
   end
+
   def insert(group) do
-    YcyMessage
+    YcyGroup
     |> StructTranslater.to_struct(group)
     |> Repo.insert()
   end

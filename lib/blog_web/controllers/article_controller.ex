@@ -15,6 +15,7 @@ defmodule BlogWeb.ArticleController do
       id
       |> Article.get_article_by_id()
       |> StructTranslater.struct_to_map()
+
     json(conn, map_article)
   end
 
@@ -32,7 +33,8 @@ defmodule BlogWeb.ArticleController do
   """
   def create(conn, params) do
     user = conn.assigns.current_user
-    IO.puts inspect(user)
+    IO.puts(inspect(user))
+
     if User.admin?(user) do
       {:ok, result} = Article.insert(params)
       map_result = StructTranslater.struct_to_map(result)
@@ -40,7 +42,5 @@ defmodule BlogWeb.ArticleController do
     else
       json(conn, "you're not admin!")
     end
-
   end
-
 end
