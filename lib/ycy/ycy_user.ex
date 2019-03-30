@@ -22,10 +22,17 @@ defmodule YcyUser do
 
   def insert(users) do
     Enum.map(users, fn user ->
-      YcyUser
-      |> StructTranslater.to_struct(user)
-      |> Repo.insert()
+      user_modified = StructTranslater.to_struct(YcyUser, user)
+      if exist?(user_modified) do
+        nil
+      else
+        Repo.insert(user_modified)
+      end
     end)
+  end
+
+  def exist?(user) do
+    get_user_by_puid(user.puid)
   end
 
   def get_user_by_puid(puid) do

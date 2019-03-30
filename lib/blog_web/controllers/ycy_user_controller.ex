@@ -11,4 +11,10 @@ defmodule BlogWeb.YcyUserController do
     IO.puts inspect(user_info)
     json(conn, user_info)
   end
+
+  def create(conn, params) do
+    %{"users" => users} = params
+    YcyUser.insert(users)
+    json(conn, %{status: :ok})
+  end
 end
