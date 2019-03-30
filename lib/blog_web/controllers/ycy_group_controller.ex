@@ -6,7 +6,7 @@ defmodule BlogWeb.YcyGroupController do
       puid
       |> YcyGroup.get_group_by_id()
       |> StructTranslater.struct_to_map()
-
+      |> Map.delete(:ycy_users)
     json(conn, group_info)
   end
 
