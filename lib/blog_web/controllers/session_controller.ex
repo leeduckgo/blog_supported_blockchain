@@ -7,7 +7,7 @@ defmodule BlogWeb.SessionController do
   suit 「application/json」
   """
   def create(conn, %{"password" => password, "username" => user}) do
-    create(conn, user, password)
+    do_create(conn, user, password)
   end
 
   # @doc """
@@ -20,7 +20,7 @@ defmodule BlogWeb.SessionController do
   #   create(conn, user, password)
   # end
 
-  defp create(conn, user, password) do
+  defp do_create(conn, user, password) do
     case User.authenticate_user(user, password) do
       {:ok, user} ->
         conn = UserController.login(conn, user)

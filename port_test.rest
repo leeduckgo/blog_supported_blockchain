@@ -14,7 +14,7 @@ content-type: application/json
   "group": "1f423133","users": [{"name": "傻蛋","puid": "aabbb"}, {"name": "大爷", "puid": "ddccc"}]
 }
 
-POST http://ahasmarter.com/api/v1/ycy/users/transfer HTTP/1.1
+POST http://127.0.0.1:4000/api/v1/ycy/users/transfer?api=100 HTTP/1.1
 content-type: application/json
 
 {

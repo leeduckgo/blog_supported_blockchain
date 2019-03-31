@@ -10,8 +10,12 @@ defmodule BlogWeb.YcyGroupController do
     json(conn, group_info)
   end
 
-  def create(conn, params) do
-    {status, _result} = YcyMessage.insert(params)
-    json(conn, %{status: status})
+  def create(conn, %{"api" => api_key, "group" => group_info}) do
+    if Auth.auth?(api_key) do
+      {status, _result} = YcyGroup.insert(group_info)
+      json(conn, %{status: status})
+    else
+      json(conn, %{status: "fail"})
+    end
   end
 end
