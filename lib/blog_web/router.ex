@@ -5,7 +5,7 @@ defmodule BlogWeb.Router do
     plug(:accepts, ["html"])
     plug(:fetch_session)
     plug(:fetch_flash)
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug(:put_secure_browser_headers)
   end
 
@@ -19,7 +19,7 @@ defmodule BlogWeb.Router do
   end
 
   scope "/elixir_web", BlogWeb do
-    pipe_through([:api])
+    pipe_through([:browser, :api])
     get("/articles/:id", PageController, :show)
   end
 
@@ -29,7 +29,7 @@ defmodule BlogWeb.Router do
   # en
 
   scope "/api/v1", BlogWeb do
-    pipe_through([:api])
+    pipe_through([:browser, :api])
     post("/articles", ArticleController, :show)
     post("/test", ArticleController, :test)
     resources("/sessions", SessionController, only: [:new, :create])
@@ -38,7 +38,7 @@ defmodule BlogWeb.Router do
   end
 
   scope "/api/v1", BlogWeb do
-    pipe_through([:api])
+    pipe_through([:browser, :api])
     get("/ycy/messages", YcyMessageController, :show)
     post("/ycy/messages/create", YcyMessageController, :create)
     post("/ycy/groups/create", YcyGroupController, :create)
