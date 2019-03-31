@@ -29,7 +29,7 @@ defmodule BlogWeb.Router do
   # en
 
   scope "/api/v1", BlogWeb do
-    pipe_through([:browser, :api])
+    pipe_through([:api])
     post("/articles", ArticleController, :show)
     post("/test", ArticleController, :test)
     resources("/sessions", SessionController, only: [:new, :create])
