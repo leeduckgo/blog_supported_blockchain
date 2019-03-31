@@ -1,5 +1,6 @@
-GET http://ahasmarter.com/api/v1/ycy/groups/1f423133 HTTP/1.1
+GET http://149.28.86.38:4000/api/v1/ycy/groups/1f423133 HTTP/1.1
 GET http://127.0.0.1:4000/api/v1/ycy/messages HTTP/1.1
+GET http://ahasmarter.com/api/v1/articles HTTP/1.1
 POST http://ahasmarter.com/api/v1/ycy/groups/1f423133 HTTP/1.1
 content-type: application/json
 

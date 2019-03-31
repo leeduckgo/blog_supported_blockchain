@@ -19,7 +19,7 @@ defmodule BlogWeb.Router do
   end
 
   scope "/elixir_web", BlogWeb do
-    pipe_through([:browser])
+    pipe_through([:api])
     get("/articles/:id", PageController, :show)
   end
 
