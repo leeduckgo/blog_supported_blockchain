@@ -14,9 +14,16 @@ content-type: application/json
   "group": "1f423133","users": [{"name": "傻蛋","puid": "aabbb"}, {"name": "大爷", "puid": "ddccc"}]
 }
 
-POST http://127.0.0.1:4000/api/v1/ycy/users/transfer?api=100 HTTP/1.1
+POST http://ahasmarter.com/api/v1/ycy/users/transfer?api=abcde HTTP/1.1
 content-type: application/json
 
 {
-  "from":"f3619053","to":"4962140a","amount": 1
+  "from":"f3619053","to":"9d6858ce","amount": 1
+}
+
+POST http://ahasmarter.com/api/v1/ycy/groups/create?api=abcde HTTP/1.1
+content-type: application/json
+
+{
+  "group":{"level":3,"puid":"9d6858ce"}
 }

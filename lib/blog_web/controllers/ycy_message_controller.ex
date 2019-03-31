@@ -17,13 +17,12 @@ defmodule BlogWeb.YcyMessageController do
     json(conn, msgs_map)
   end
 
-  def create(conn, %{"api" => api_key, "msg" => msg}) do
-    if Auth.auth?(api_key) do
-      {status, _result} = YcyMessage.insert(msg)
-      json(conn, %{status: status})
-    else
-      json(conn, %{status: "fail"})
-    end
-
+  def create(conn, msg) do
+    # if Auth.auth?(api_key) do
+    {status, _result} = YcyMessage.insert(msg)
+    json(conn, %{status: status})
+    # else
+    #   json(conn, %{status: "fail"})
+    # end
   end
 end
