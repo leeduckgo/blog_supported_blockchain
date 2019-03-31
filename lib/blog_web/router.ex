@@ -11,7 +11,7 @@ defmodule BlogWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["urlencoded", "json"])
-    # plug(CORSPlug, origin: "http://ahasmarter.com")
+    plug(CORSPlug, origin: "http://ahasmarter.com")
   end
 
   pipeline :auth do

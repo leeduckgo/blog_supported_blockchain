@@ -3,7 +3,7 @@ defmodule BlogWeb.Endpoint do
 
   socket("/socket", BlogWeb.UserSocket)
   # CORSPlug
-  plug(CORSPlug, origin: "http://ahasmarter.com")
+  # plug(CORSPlug, origin: "http://ahasmarter.com")
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
