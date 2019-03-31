@@ -5,13 +5,13 @@ defmodule BlogWeb.Router do
     plug(:accepts, ["html"])
     plug(:fetch_session)
     plug(:fetch_flash)
-    # plug :protect_from_forgery
+    plug :protect_from_forgery
     plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
     plug(:accepts, ["urlencoded", "json"])
-    plug(CORSPlug, origin: "http://localhost")
+    plug(CORSPlug, origin: "http://ahasmarter.com")
   end
 
   pipeline :auth do
@@ -26,7 +26,7 @@ defmodule BlogWeb.Router do
   # scope "/ycy", BlogWeb do
   #   pipe_through([:browser])
   #   get("/messages", YcyController, :show)
-  # end
+  # en
 
   scope "/api/v1", BlogWeb do
     pipe_through([:browser, :api])
@@ -35,6 +35,10 @@ defmodule BlogWeb.Router do
     resources("/sessions", SessionController, only: [:new, :create])
     # get an article by id
     get("/articles/:id", ArticleController, :show)
+  end
+
+  scope "/api/v1", BlogWeb do
+    pipe_through([:api])
     get("/ycy/messages", YcyMessageController, :show)
     post("/ycy/messages/create", YcyMessageController, :create)
     post("/ycy/groups/create", YcyGroupController, :create)

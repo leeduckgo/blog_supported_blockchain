@@ -1,5 +1,5 @@
 GET http://ahasmarter.com/api/v1/ycy/groups/1f423133 HTTP/1.1
-GET http://ahasmarter.com/api/v1/ycy/messages HTTP/1.1
+GET http://127.0.0.1:4000/api/v1/ycy/messages HTTP/1.1
 POST http://ahasmarter.com/api/v1/ycy/groups/1f423133 HTTP/1.1
 content-type: application/json
 
@@ -17,5 +17,5 @@ POST http://ahasmarter.com/api/v1/ycy/users/transfer HTTP/1.1
 content-type: application/json
 
 {
-  "from":"f3619053","to":"4962140a","amount": 5
+  "from":"f3619053","to":"4962140a","amount": 5b
 }

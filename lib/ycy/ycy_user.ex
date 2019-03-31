@@ -56,11 +56,15 @@ defmodule YcyUser do
     do_transfer(user_from, user_to, amount)
   end
 
-  defp do_transfer(%YcyUser{balance: balance} = _user_from, _user_to, amount)
-                  when balance <= amount do
+  defp do_transfer(%YcyUser{balance: balance}, _user_to, amount)
+  when balance < amount do
     {:error, "insufficient_balance"}
   end
 
+  defp do_transfer(%YcyUser{puid: puid_from}, %YcyUser{puid: puid_to} , _amount)
+  when puid_from == puid_to do
+    {:error, "transfer to self"}
+  end
   defp do_transfer(%YcyUser{balance: balance_from} = user_from, %YcyUser{balance: balance_to} = user_to, amount) do
     user_from_transfered =
       user_from
