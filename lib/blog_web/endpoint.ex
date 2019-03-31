@@ -2,7 +2,8 @@ defmodule BlogWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :blog
 
   socket("/socket", BlogWeb.UserSocket)
-
+  # CORSPlug
+  plug(CORSPlug, origin: "http://ahasmarter.com")
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
