@@ -56,6 +56,9 @@ defmodule YcyUser do
     do_transfer(user_from, user_to, amount)
   end
 
+  defp do_transfer(_user_from, _user_to, amount) when amount <= 0 do
+    {:error, "negative_amount"}
+  end
   defp do_transfer(%YcyUser{balance: balance}, _user_to, amount)
   when balance < amount do
     {:error, "insufficient_balance"}
