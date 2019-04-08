@@ -34,7 +34,7 @@ defmodule YcyRealEstate do
   def do_buy_estate(_buyer, amount, %{price: price}) when amount <= price do
     :low_offer
   end
-  def do_buy_estate(%{balance: balance}, amount, _real_estate) when balance <= amount do
+  def do_buy_estate(%{balance: balance}, amount, _real_estate) when balance < amount do
     IO.puts inspect(balance)
     IO.puts inspect(amount)
     :no_enough_money
