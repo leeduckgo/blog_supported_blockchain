@@ -50,6 +50,15 @@ defmodule BlogWeb.Router do
   end
 
   scope "/api/v1", BlogWeb do
+    pipe_through([:browser, :api])
+
+    get("/ycy/real_estates", YcyRealEstateController, :show)
+    get("/ycy/real_estate/:name", YcyRealEstateController, :show)
+    post("/ycy/real_estate/buy/:buyer", YcyRealEstateController, :buy)
+    post("/ycy/real_estate/update", YcyRealEstateController, :update)
+  end
+
+  scope "/api/v1", BlogWeb do
     pipe_through([:browser, :api, :auth])
     get("/sessions/logout", SessionController, :delete)
     get("/users/:id", UserController, :show)

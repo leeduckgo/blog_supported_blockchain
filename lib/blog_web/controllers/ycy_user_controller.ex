@@ -1,17 +1,23 @@
 defmodule BlogWeb.YcyUserController do
   use BlogWeb, :controller
 
-  def show(conn, %{"puid" => puid}) do
+  def show(conn, %{"puid" => puid, "group_id" => group_puid}) do
+    try do
+      user_info =
+        puid
+        |> YcyUser.get_user_by_puid(group_puid)
+        |> StructTranslater.struct_to_map()
+        |> Map.delete(:ycy_group)
+      IO.puts inspect(user_info)
+      json(conn, user_info)
+    rescue
+      _ ->
+        json(conn,%{"error" => "no_exist"})
+    end
 
-    user_info =
-      puid
-      |> YcyUser.get_user_by_puid()
-      |> StructTranslater.struct_to_map()
-      |> Map.delete(:ycy_group)
-    IO.puts inspect(user_info)
-    json(conn, user_info)
   end
 
+  @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"api" => api_key, "group" => group_puid, "users" => users}) do
     if Auth.auth?(api_key) do
       group = YcyGroup.get_group_by_id(group_puid)
@@ -22,9 +28,9 @@ defmodule BlogWeb.YcyUserController do
     end
   end
 
-  def transfer(conn, %{"api" => api_key, "from" => from, "to" => to, "amount" => amount}) do
+  def transfer(conn, %{"api" => api_key, "from" => from, "to" => to, "amount" => amount, "group_id" => group_puid}) do
     if Auth.auth?(api_key) do
-      {status, _result} = YcyUser.transfer(from, to, amount)
+      {status, _result} = YcyUser.transfer(from, to, amount, group_puid)
       case status do
         :ok ->
           json(conn, %{status: "success"})

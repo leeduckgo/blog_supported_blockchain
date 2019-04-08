@@ -7,6 +7,7 @@ defmodule YcyUser do
     field(:level, :integer)
     field(:balance, :integer)
     belongs_to(:ycy_group, YcyGroup)
+    belongs_to(:ycy_real_estate, YcyRealEstate)
   end
 
   def get_users() do
@@ -26,7 +27,7 @@ defmodule YcyUser do
         YcyUser
         |> StructTranslater.to_struct(user)
         |> Map.update(:ycy_group_id, group_id, &(&1 = group_id))
-      if exist?(user_modified) do
+      if exist?(user_modified, group_id) do
         nil
       else
         Repo.insert(user_modified)
@@ -34,25 +35,26 @@ defmodule YcyUser do
     end)
   end
 
-  def exist?(user) do
-    get_user_by_puid(user.puid)
+  def exist?(user, group_id) do
+    get_user_by_puid(user.puid, group_id)
   end
 
-  def get_user_by_puid(puid) do
+  def get_user_by_puid(puid, group_id) do
+    group = YcyGroup.get_group_by_id(group_id)
     YcyUser
-    |> where(puid: ^puid)
+    |> where([u], u.puid == ^puid and u.ycy_group_id == ^group.id)
     |> Repo.one()
   end
 
-  def get_balance(puid) do
+  def get_balance(puid, group_id) do
     puid
-    |> get_user_by_puid()
+    |> get_user_by_puid(group_id)
     |> Map.fetch!(:balance)
   end
 
-  def transfer(from, to, amount) do
-    user_from = get_user_by_puid(from)
-    user_to = get_user_by_puid(to)
+  def transfer(from, to, amount, group_id) do
+    user_from = get_user_by_puid(from, group_id)
+    user_to = get_user_by_puid(to, group_id)
     do_transfer(user_from, user_to, amount)
   end
 
@@ -83,7 +85,8 @@ defmodule YcyUser do
   def changeset(ycy_user, params \\ %{}) do
     ycy_user
     |> cast(params, [
-      :balance
+      :balance,
+      :ycy_real_estate_id
     ])
   end
 end

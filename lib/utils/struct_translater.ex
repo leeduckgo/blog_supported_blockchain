@@ -11,8 +11,11 @@ defmodule StructTranslater do
   end
 
   def struct_to_map(struct) do
-    struct
-    |> Map.from_struct()
-    |> Map.delete(:__meta__)
+    map =
+      struct
+      |> Map.from_struct()
+      |> Map.delete(:__meta__)
+
+    :maps.filter(fn _, v -> Ecto.assoc_loaded?(v) end, map)
   end
 end

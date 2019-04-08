@@ -15,6 +15,11 @@ defmodule YcyGroup do
     Repo.all(YcyGroup)
   end
 
+  def get_group_by_id(group_id) when is_integer(group_id) do
+    YcyGroup
+    |> where(id: ^group_id)
+    |> Repo.one()
+  end
   def get_group_by_id(group_id) do
     YcyGroup
     |> where(puid: ^group_id)
