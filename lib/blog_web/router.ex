@@ -13,6 +13,7 @@ defmodule BlogWeb.Router do
     plug(Phoenix.LiveView.Flash)
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    plug(CORSPlug, origin: "http://ahasmarter.com")
     # plug :put_layout, {DemoWeb.LayoutView, :app}
   end
 
