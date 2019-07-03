@@ -15,7 +15,6 @@ defmodule Blog.Mixfile do
   end
 
   # Configuration for the OTP application.
-  #
   # Type `mix help compile.app` for more information.
   def application do
     [
@@ -35,24 +34,29 @@ defmodule Blog.Mixfile do
   defp deps do
     [
       # scrivener
-      {:scrivener_ecto, "~> 1.3.0"},
+      {:scrivener_ecto, "~> 2.2.0"},
       {:jason, ">=0.0.1"},
       {:cors_plug, "~> 2.0"},
       # {:corsica, "~> 1.0"},
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.1"},
-      {:phoenix, "~> 1.3.4"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix, github: "phoenixframework/phoenix", branch: "v1.4", override: true},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_ecto, "~> 4.0"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.10"},
+      {:phoenix_html, "~> 2.13", github: "phoenixframework/phoenix_html", override: true},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:ecto_enum, "~> 1.0"},
       {:earmark, ">= 0.0.0"},
-      {:plug_cowboy, "~> 1.0"}
+      {:plug_cowboy, "~> 1.0"},
+      {:phoenix_live_view,
+       github: "phoenixframework/phoenix_live_view",
+       ref: "b94f0d3a1299fcc0fb3e6ea1bdd298e9c4d1571c"},
+      {:ecto_sql, "~> 3.0"},
+      {:poison, "~> 3.1.0"}
     ]
   end
 

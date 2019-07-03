@@ -8,13 +8,13 @@ defmodule BlogWeb.YcyUserController do
         |> YcyUser.get_user_by_puid(group_puid)
         |> StructTranslater.struct_to_map()
         |> Map.delete(:ycy_group)
-      IO.puts inspect(user_info)
+
+      IO.puts(inspect(user_info))
       json(conn, user_info)
     rescue
       _ ->
-        json(conn,%{"error" => "no_exist"})
+        json(conn, %{"error" => "no_exist"})
     end
-
   end
 
   @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
@@ -28,12 +28,20 @@ defmodule BlogWeb.YcyUserController do
     end
   end
 
-  def transfer(conn, %{"api" => api_key, "from" => from, "to" => to, "amount" => amount, "group_id" => group_puid}) do
+  def transfer(conn, %{
+        "api" => api_key,
+        "from" => from,
+        "to" => to,
+        "amount" => amount,
+        "group_id" => group_puid
+      }) do
     if Auth.auth?(api_key) do
       {status, _result} = YcyUser.transfer(from, to, amount, group_puid)
+
       case status do
         :ok ->
           json(conn, %{status: "success"})
+
         :error ->
           json(conn, %{status: "fail"})
       end
@@ -41,5 +49,4 @@ defmodule BlogWeb.YcyUserController do
       json(conn, %{status: "fail"})
     end
   end
-
 end

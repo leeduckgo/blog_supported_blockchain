@@ -20,6 +20,7 @@ defmodule YcyGroup do
     |> where(id: ^group_id)
     |> Repo.one()
   end
+
   def get_group_by_id(group_id) do
     YcyGroup
     |> where(puid: ^group_id)

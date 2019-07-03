@@ -25,20 +25,24 @@ defmodule YcyRealEstate do
     do_buy_estate(buyer, amount, real_estate)
   end
 
-  def do_buy_estate(_buyer, amount, _real_estate) when amount<=0 do
+  def do_buy_estate(_buyer, amount, _real_estate) when amount <= 0 do
     :illegal_amount
   end
+
   def do_buy_estate(_buyer, _amount, real_estate) when is_nil(real_estate) do
     :no_exist
   end
+
   def do_buy_estate(_buyer, amount, %{price: price}) when amount <= price do
     :low_offer
   end
+
   def do_buy_estate(%{balance: balance}, amount, _real_estate) when balance < amount do
-    IO.puts inspect(balance)
-    IO.puts inspect(amount)
+    IO.puts(inspect(balance))
+    IO.puts(inspect(amount))
     :no_enough_money
   end
+
   def do_buy_estate(%{id: user_id, balance: balance} = user, amount, %{id: re_id} = real_estate) do
     user
     |> YcyUser.changeset(%{balance: balance - amount, ycy_real_estate_id: re_id})
@@ -53,6 +57,7 @@ defmodule YcyRealEstate do
 
   def modify(signature, name) do
     real_estate = get_real_estate(name)
+
     real_estate
     |> changeset(%{signature: signature})
     |> Repo.update!()

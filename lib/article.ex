@@ -46,6 +46,10 @@ defmodule Article do
     |> StructTranslater.struct_to_map()
   end
 
+  @doc """
+    get article by article id!
+  """
+  @spec get_article_by_id(integer()) :: Article.t()
   def get_article_by_id(id) do
     Article
     |> where(id: ^id)

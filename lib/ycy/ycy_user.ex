@@ -27,6 +27,7 @@ defmodule YcyUser do
         YcyUser
         |> StructTranslater.to_struct(user)
         |> Map.update(:ycy_group_id, group_id, &(&1 = group_id))
+
       if exist?(user_modified, group_id) do
         nil
       else
@@ -41,6 +42,7 @@ defmodule YcyUser do
 
   def get_user_by_puid(puid, group_id) do
     group = YcyGroup.get_group_by_id(group_id)
+
     YcyUser
     |> where([u], u.puid == ^puid and u.ycy_group_id == ^group.id)
     |> Repo.one()
@@ -61,25 +63,33 @@ defmodule YcyUser do
   defp do_transfer(_user_from, _user_to, amount) when amount <= 0 do
     {:error, "negative_amount"}
   end
+
   defp do_transfer(%YcyUser{balance: balance}, _user_to, amount)
-  when balance < amount do
+       when balance < amount do
     {:error, "insufficient_balance"}
   end
 
-  defp do_transfer(%YcyUser{puid: puid_from}, %YcyUser{puid: puid_to} , _amount)
-  when puid_from == puid_to do
+  defp do_transfer(%YcyUser{puid: puid_from}, %YcyUser{puid: puid_to}, _amount)
+       when puid_from == puid_to do
     {:error, "transfer to self"}
   end
-  defp do_transfer(%YcyUser{balance: balance_from} = user_from, %YcyUser{balance: balance_to} = user_to, amount) do
+
+  defp do_transfer(
+         %YcyUser{balance: balance_from} = user_from,
+         %YcyUser{balance: balance_to} = user_to,
+         amount
+       ) do
     user_from_transfered =
       user_from
       |> changeset(%{balance: balance_from - amount})
       |> Repo.update!()
+
     user_to_transfered =
       user_to
       |> changeset(%{balance: balance_to + amount})
       |> Repo.update!()
-    {:ok,[user_from_transfered, user_to_transfered, amount]}
+
+    {:ok, [user_from_transfered, user_to_transfered, amount]}
   end
 
   def changeset(ycy_user, params \\ %{}) do

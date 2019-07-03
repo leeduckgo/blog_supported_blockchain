@@ -1,12 +1,19 @@
 defmodule BlogWeb.Router do
+  @moduledoc """
+    router of blogweb!
+
+    http://ahasmarter.com
+  """
   use BlogWeb, :router
+  import Phoenix.LiveView.Router
 
   pipeline :browser do
     plug(:accepts, ["html"])
     plug(:fetch_session)
-    plug(:fetch_flash)
-    # plug :protect_from_forgery
+    plug(Phoenix.LiveView.Flash)
+    plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    # plug :put_layout, {DemoWeb.LayoutView, :app}
   end
 
   pipeline :api do
@@ -28,6 +35,11 @@ defmodule BlogWeb.Router do
   #   get("/messages", YcyController, :show)
   # en
 
+  scope "/", BlogWeb do
+    pipe_through([:browser])
+    live("/pacman", PacmanLive)
+  end
+
   scope "/api/v1", BlogWeb do
     pipe_through([:browser, :api])
     post("/articles", ArticleController, :show)
@@ -37,26 +49,26 @@ defmodule BlogWeb.Router do
     get("/articles/:id", ArticleController, :show)
   end
 
-  scope "/api/v1", BlogWeb do
-    pipe_through([:browser, :api])
-    get("/ycy/messages", YcyMessageController, :show)
-    post("/ycy/messages/create", YcyMessageController, :create)
-    post("/ycy/groups/create", YcyGroupController, :create)
-    # get an group info by id
-    get("/ycy/groups/:puid", YcyGroupController, :show)
-    get("/ycy/users/:puid", YcyUserController, :show)
-    post("/ycy/users/create", YcyUserController, :create)
-    post("/ycy/users/transfer", YcyUserController, :transfer)
-  end
+  # scope "/api/v1", BlogWeb do
+  #   pipe_through([:browser, :api])
+  #   get("/ycy/messages", YcyMessageController, :show)
+  #   post("/ycy/messages/create", YcyMessageController, :create)
+  #   post("/ycy/groups/create", YcyGroupController, :create)
+  #   # get an group info by id
+  #   get("/ycy/groups/:puid", YcyGroupController, :show)
+  #   get("/ycy/users/:puid", YcyUserController, :show)
+  #   post("/ycy/users/create", YcyUserController, :create)
+  #   post("/ycy/users/transfer", YcyUserController, :transfer)
+  # end
 
-  scope "/api/v1", BlogWeb do
-    pipe_through([:browser, :api])
+  # scope "/api/v1", BlogWeb do
+  #   pipe_through([:browser, :api])
 
-    get("/ycy/real_estates", YcyRealEstateController, :show)
-    get("/ycy/real_estate/:name", YcyRealEstateController, :show)
-    post("/ycy/real_estate/buy/:buyer", YcyRealEstateController, :buy)
-    post("/ycy/real_estate/update", YcyRealEstateController, :update)
-  end
+  #   get("/ycy/real_estates", YcyRealEstateController, :show)
+  #   get("/ycy/real_estate/:name", YcyRealEstateController, :show)
+  #   post("/ycy/real_estate/buy/:buyer", YcyRealEstateController, :buy)
+  #   post("/ycy/real_estate/update", YcyRealEstateController, :update)
+  # end
 
   scope "/api/v1", BlogWeb do
     pipe_through([:browser, :api, :auth])
