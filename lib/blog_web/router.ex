@@ -11,9 +11,9 @@ defmodule BlogWeb.Router do
     plug(:accepts, ["html"])
     plug(:fetch_session)
     plug(Phoenix.LiveView.Flash)
-    plug(:protect_from_forgery)
+    # plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
-    plug(CORSPlug, origin: "http://ahasmarter.com")
+    # plug(CORSPlug, origin: "http://ahasmarter.com")
     # plug :put_layout, {DemoWeb.LayoutView, :app}
   end
 
